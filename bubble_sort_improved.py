@@ -6,17 +6,29 @@
 (там уже самое большое число)
 '''
 
+'''
+Модернизация. Запоминаем место (last_swap_place), 
+где мы в последний раз сделали перестановку:
+до этого места все уже отсортировано. 
+Все более крупные числа уже были подняты ранее.
+Теперь сортируем не добегая до этого места.
+'''
+
 
 from random import randint
 
-list_size = 20
-lst = [randint(-10, 10) for i in range(list_size)]
-print(*lst)
+list_size = 10
+lst = [randint(-5, 5) for i in range(list_size)]
+print(lst)
 
-for right_point in range(len(lst) - 1, 0, -1):
+right_point = len(lst) - 1
+while right_point >= 1:
+    last_swap_place = 0
     for left_point in range(1, right_point + 1):
         if lst[left_point] < lst[left_point - 1]:
             lst[left_point], lst[left_point - 1] \
                 = lst[left_point - 1], lst[left_point]
+            last_swap_place = left_point
+    right_point = last_swap_place - 1
 
-print(*lst)
+print(lst)
