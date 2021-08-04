@@ -9,6 +9,7 @@
 
 from random import randint
 
+# генерируем случайный список
 list_size = 20
 lst = [randint(-10, 10) for i in range(list_size)]
 print(*lst)
