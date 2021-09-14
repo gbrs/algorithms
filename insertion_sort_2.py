@@ -30,6 +30,7 @@ def find_insertion_place(i):
 
 
 def find_insertion_place_binary(i):
+    # TODO не работает!!! уходит в вечный цикл?
     left = 0
     right = i - 1
     if lst[i] < lst[left]:
@@ -42,7 +43,7 @@ def find_insertion_place_binary(i):
             right = middle
         else:
             left = middle
-    return left + 1
+    return right + 1
 
 
 def shift_cyclically_right(i, insertion_place):
@@ -58,8 +59,9 @@ def shift_cyclically_right(i, insertion_place):
     lst[insertion_place] = spam
 
 
-list_size = 50
-lst = generate_random_list(list_size)
+list_size = 3
+# lst = generate_random_list(list_size)
+lst = [1, 2, -1]
 print(*lst)
 
 # первый элемент - уже отсортированная часть массива,
@@ -67,5 +69,6 @@ print(*lst)
 for i in range(1, list_size):
     insertion_place = find_insertion_place(i)
     shift_cyclically_right(i, insertion_place)
+    print(*lst)
 
 print(*lst)
