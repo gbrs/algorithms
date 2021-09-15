@@ -17,20 +17,18 @@ def generate_random_list(list_size):
     return [randint(-range_of_values, range_of_values) for i in range(list_size)]
 
 
-'''
 def find_insertion_place(current):
-    '
+    """
     пробегаем отсортированную часть массива (до current), 
     подыскивая подходящее место для вставки линейным поиском.
     Обратное направление поиска места обеспечит устойчивость сортировки
     :param current: int, номер текущего элемента
     :return: int, номер места для вставки
-    '
+    """
     for j in range(current - 1, -1, -1):
         if lst[j] <= lst[current]:
             return j + 1
     return 0
-'''
 
 
 def find_insertion_place_binary(current):
@@ -58,6 +56,18 @@ def find_insertion_place_binary(current):
     return right
 
 
+def find_insertion_place_bisect(current):
+    """
+    в отсортированной части массива (до current) модуль bisect
+    подыскивает подходящее место для вставки.
+    Работает с глобальным списком lst, но не изменяет его.
+    :param current: int, номер текущего элемента
+    :return: int, номер места для вставки
+    """
+    from bisect import bisect
+    return bisect(lst[0:current], lst[current])
+
+
 def shift_cyclically_right(current, insertion_place):
     """
     циклический сдвиг элементов вправо.
@@ -72,7 +82,7 @@ def shift_cyclically_right(current, insertion_place):
     lst[insertion_place] = spam
 
 
-LIST_SIZE = 10000
+LIST_SIZE = 40
 lst = generate_random_list(LIST_SIZE)
 # lst = [-5, -11, 12, 7, 15]
 print(*lst)
@@ -80,7 +90,7 @@ print(*lst)
 # первый элемент - уже отсортированная часть массива,
 # перебираем все остальные элементы, добавляя их в нужные места отсортированной части.
 for i in range(1, LIST_SIZE):
-    insertion_place = find_insertion_place_binary(i)
+    insertion_place = find_insertion_place_bisect(i)
     shift_cyclically_right(i, insertion_place)
     # print(*lst)
 
