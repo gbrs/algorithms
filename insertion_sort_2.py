@@ -2,73 +2,87 @@
 Сортировка вставками (англ. Insertion sort) — алгоритм сортировки,
 в котором элементы просматриваются последовательно
 и размещаются в нужное место среди ранее упорядоченных элементов
-циклическим сдвигом вправо. Отсортированная часть каждый раз увеличивается, соответственно
+циклическим сдвигом вправо. Отсортированная часть каждый раз увеличивается
+на единицу
 '''
 
 def generate_random_list(list_size):
-    '''
+    """
     генерация случайного списка из целых чисел
     :param list_size: размер генерируемого списка
     :return: list int, список из целых чисел
-    '''
+    """
     from random import randint
     range_of_values = list_size // 2
     return [randint(-range_of_values, range_of_values) for i in range(list_size)]
 
 
-def find_insertion_place(i):
-    '''
-    пробегаем отсортированную часть массива (до i), подыскивая подходящее место для вставки.
+'''
+def find_insertion_place(current):
+    '
+    пробегаем отсортированную часть массива (до current), 
+    подыскивая подходящее место для вставки линейным поиском.
     Обратное направление поиска места обеспечит устойчивость сортировки
-    :param i: int, номер текущего элемента
+    :param current: int, номер текущего элемента
     :return: int, номер места для вставки
-    '''
-    for j in range(i - 1, -1, -1):
-        if lst[j] <= lst[i]:
+    '
+    for j in range(current - 1, -1, -1):
+        if lst[j] <= lst[current]:
             return j + 1
     return 0
+'''
 
 
-def find_insertion_place_binary(i):
-    # TODO не работает!!! уходит в вечный цикл?
+def find_insertion_place_binary(current):
+    """
+    в отсортированной части массива (до current)
+    подыскиваем подходящее место для вставки бинарным поиском,
+    используя пару указателей: left и right.
+    Работает с глобальным списком lst, но не изменяет его.
+    :param current: int, номер текущего элемента
+    :return: int, номер места для вставки
+    """
     left = 0
-    right = i - 1
-    if lst[i] < lst[left]:
+    right = current - 1
+    if lst[current] < lst[left]:
         return 0
-    if lst[i] > lst[right]:
-        return i
-    while lst[left] < lst[right]:
+    if lst[current] > lst[right]:
+        return current
+    # не забывам обработать случай, когда левый и правый указатель впритык друг к другу подошли
+    while lst[left] < lst[right] and right - left > 1:
         middle = (right + left) // 2
-        if lst[i] < lst[middle]:
+        if lst[current] < lst[middle]:
             right = middle
         else:
             left = middle
-    return right + 1
+    return right
 
 
-def shift_cyclically_right(i, insertion_place):
-    '''
-    циклический сдвиг элементов вправо
-    :param i: int, номер текущего числа
+def shift_cyclically_right(current, insertion_place):
+    """
+    циклический сдвиг элементов вправо.
+    side effect: Изменяет глобальный список lst.
+    :param current: int, номер текущего числа
     :param insertion_place: int, номер места, куда надо вставить текущее число
     :return: None
-    '''
-    spam = lst[i]
-    for k in range(i, insertion_place, -1):
+    """
+    spam = lst[current]
+    for k in range(current, insertion_place, -1):
         lst[k] = lst[k - 1]
     lst[insertion_place] = spam
 
 
-list_size = 3
-# lst = generate_random_list(list_size)
-lst = [1, 2, -1]
+LIST_SIZE = 10000
+lst = generate_random_list(LIST_SIZE)
+# lst = [-5, -11, 12, 7, 15]
 print(*lst)
 
 # первый элемент - уже отсортированная часть массива,
-# перебираем все остальные, добавляя их в нужные места отсортированной части.
-for i in range(1, list_size):
-    insertion_place = find_insertion_place(i)
+# перебираем все остальные элементы, добавляя их в нужные места отсортированной части.
+for i in range(1, LIST_SIZE):
+    insertion_place = find_insertion_place_binary(i)
     shift_cyclically_right(i, insertion_place)
-    print(*lst)
+    # print(*lst)
 
 print(*lst)
+
