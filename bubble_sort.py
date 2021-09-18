@@ -10,8 +10,8 @@
 from random import randint
 
 # генерируем случайный список
-list_size = 20
-lst = [randint(-10, 10) for i in range(list_size)]
+list_size = 1000
+lst = [randint(-500, 500) for i in range(list_size)]
 print(*lst)
 
 for right_point in range(len(lst) - 1, 0, -1):

@@ -84,14 +84,14 @@ def shift_cyclically_right(current, insertion_place):
     lst[insertion_place] = spam
 
 
-LIST_SIZE = 40
+LIST_SIZE = 10000
 lst = generate_random_list(LIST_SIZE)
 print(*lst)
 
 # первый элемент - уже отсортированная часть массива,
 # перебираем все остальные элементы, добавляя их в нужные места отсортированной части.
 for i in range(1, LIST_SIZE):
-    insertion_place = find_insertion_place_bisect(i)
+    insertion_place = find_insertion_place_linear(i)
     shift_cyclically_right(i, insertion_place)
     # print(*lst)
 
