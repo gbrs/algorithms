@@ -55,13 +55,12 @@ def sort_quickly(start, stop):
         lst[stop + 1], lst[left] = lst[left], lst[stop + 1]
         print('base ', *lst)
         sort_quickly(start, left - 2)
-        sort_quickly(left + 1, stop - 1)
-
+        sort_quickly(left + 1, stop)
 
 
 LIST_SIZE = 9
 # lst = generate_random_list(LIST_SIZE)
-lst = [4, 3, 2, 1, -1, -2, -3, -4, 0]
+lst = [4, 3, 2, 1, -4, -2, -3, -1, 0]
 print('start', *lst)
 
 sort_quickly(0, LIST_SIZE - 2)
