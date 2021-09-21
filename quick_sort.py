@@ -42,7 +42,7 @@ def find_right_larger(left, right, base):
 
 
 def sort_quickly(start, stop):
-    print(start, stop)
+    print(start, stop, lst[stop + 1])
     if start < stop:
         base = lst[stop + 1]
         left = find_left_larger(start, stop, base)
@@ -52,15 +52,21 @@ def sort_quickly(start, stop):
             print('swap ', *lst)
             left = find_left_larger(left, right, base)
             right = find_right_larger(left, right, base)
-        lst[stop + 1], lst[left] = lst[left], lst[stop + 1]
+        if lst[left] > base:
+            lst[stop + 1], lst[left] = lst[left], lst[stop + 1]
+
         print('base ', *lst)
         sort_quickly(start, left - 2)
         sort_quickly(left + 1, stop)
 
+    elif start == stop:
+        if lst[start] > lst[stop + 1]:
+            lst[stop + 1], lst[start] = lst[start], lst[stop + 1]
 
-LIST_SIZE = 9
+
+LIST_SIZE = 5
 # lst = generate_random_list(LIST_SIZE)
-lst = [4, 3, 2, 1, -4, -2, -3, -1, 0]
+lst = [-2, 2, -2, -2, 2]
 print('start', *lst)
 
 sort_quickly(0, LIST_SIZE - 2)
