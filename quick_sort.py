@@ -23,6 +23,51 @@ def generate_random_list(list_size):
     return [randint(-range_of_values, range_of_values) for i in range(list_size)]
 
 
+def sort_quickly(lst, start, end):
+    if end - start > 1:
+        p = share_elements(lst, start, end)
+        sort_quickly(lst, start, p)
+        sort_quickly(lst, p + 1, end)
+
+
+def share_elements(lst, start, end):
+    # опорным элементом берем первый
+    # делаем два маркера: левый и правый на границах сортируемой части массива
+    pivot = lst[start]
+    left = start + 1
+    right = end - 1
+
+    while True:
+        while (left <= right and lst[left] <= pivot):
+            left += 1
+        while (left <= right and lst[right] >= pivot):
+            right -= 1
+
+        if left <= right:
+            lst[left], lst[right] = lst[right], lst[left]
+        else:
+            lst[start], lst[right] = lst[right], lst[start]
+            return right
+
+
+LIST_SIZE = 30
+lst = generate_random_list(LIST_SIZE)
+print(*lst)
+sort_quickly(lst, 0, len(lst))
+print(*lst)
+
+'''
+def generate_random_list(list_size):
+    """
+    генерация случайного списка из целых чисел
+    :param list_size: размер генерируемого списка
+    :return: list int, список из целых чисел
+    """
+    from random import randint
+    range_of_values = list_size // 2
+    return [randint(-range_of_values, range_of_values) for i in range(list_size)]
+
+
 def find_left_larger(left, right, base):
     while left < right:
         if lst[left] <= base:
@@ -71,3 +116,4 @@ print('start', *lst)
 
 sort_quickly(0, LIST_SIZE - 2)
 print('stop ', *lst)
+'''
