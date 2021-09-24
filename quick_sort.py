@@ -1,13 +1,13 @@
 """
 Выбираем некий опорный элемент. Есть более эффективные способы,
-но для простоты я выбираю последний элемент.
+но для простоты я выбираю первый элемент.
 Все числа меньше и равные опорному должны оказаться слева от него,
-а бОльшие - справа. Данная схема использует два индекса
-(один в начале массива, другой на предпоследней позиции - перед опорным),
+а бОльшие - справа. Данная схема использует два флага
+(один в начале массива (сразу за опорным), другой на последней позиции),
 которые приближаются друг к другу, пока не найдётся пара элементов,
 где один больше опорного и расположен перед ним, а второй меньше и расположен после.
-Эти элементы меняются местами. Обмен происходит до тех пор, пока индексы не пересекутся.
-Алгоритм возвращает последний индекс и на это место меняется опорный элемент.
+Эти элементы меняются местами. Обмен происходит до тех пор, пока флаги не встретятся.
+Ставим опорный элемент между бОльшими и меньшими элементами.
 Потом рекурсивно сортируем  списки слева и справа.
 """
 
@@ -24,27 +24,49 @@ def generate_random_list(list_size):
 
 
 def sort_quickly(lst, start, end):
+    """
+    рекурсивно вызываем сортировку для элементов слева и отдельно справа от опорного.
+    Если элементов меньше трех, то ничего не надо делать: мы их уже отсортировали.
+    :param lst: list, сортируемый список
+    :param start: int, первый элемент сортируемого участка
+    :param end: int, последний элемент сортируемого участка (точнее на 1 больше)
+    :return: None
+    """
     if end - start > 1:
-        p = share_elements(lst, start, end)
-        sort_quickly(lst, start, p)
-        sort_quickly(lst, p + 1, end)
+        pivot = share_elements(lst, start, end)
+        sort_quickly(lst, start, pivot)
+        sort_quickly(lst, pivot + 1, end)
 
 
 def share_elements(lst, start, end):
-    # опорным элементом берем первый
-    # делаем два маркера: левый и правый на границах сортируемой части массива
+    """
+    распределение элементов сортируемого участка матрицы: маленькие налево,
+    большие направо. Опорным элементом берем первый. Создаем два флага -
+    левый и правый - на границах сортируемой части массива. Смещаем левый флаг
+    пока не найдем элемент больше опорного, а правый - пока не найдем меньше опорного.
+    Обмениваем эти элементы местами.
+    В конце между большими и маленькими элементами ставим опорный элемент
+    и возвращаем его место в списке.
+    :param lst: list, сортируемый список
+    :param start: int, первый элемент сортируемого участка
+    :param end: int, последний элемент сортируемого участка (точнее на 1 больше)
+    :return: right - место положения правого флага
+    """
+
     pivot = lst[start]
     left = start + 1
     right = end - 1
 
     while True:
+        # смещение флагов
         while (left <= right and lst[left] <= pivot):
             left += 1
         while (left <= right and lst[right] >= pivot):
             right -= 1
-
+        # обмен элементов
         if left <= right:
             lst[left], lst[right] = lst[right], lst[left]
+        # помещение опорного элемента между маленькими и большими элементами
         else:
             lst[start], lst[right] = lst[right], lst[start]
             return right
@@ -53,67 +75,5 @@ def share_elements(lst, start, end):
 LIST_SIZE = 30
 lst = generate_random_list(LIST_SIZE)
 print(*lst)
-sort_quickly(lst, 0, len(lst))
+sort_quickly(lst, 0, LIST_SIZE)
 print(*lst)
-
-'''
-def generate_random_list(list_size):
-    """
-    генерация случайного списка из целых чисел
-    :param list_size: размер генерируемого списка
-    :return: list int, список из целых чисел
-    """
-    from random import randint
-    range_of_values = list_size // 2
-    return [randint(-range_of_values, range_of_values) for i in range(list_size)]
-
-
-def find_left_larger(left, right, base):
-    while left < right:
-        if lst[left] <= base:
-            left += 1
-        else:
-            return left
-    return left
-
-
-def find_right_larger(left, right, base):
-    while left < right:
-        if lst[right] > base:
-            right -= 1
-        else:
-            return right
-    return right
-
-
-def sort_quickly(start, stop):
-    print(start, stop, lst[stop + 1])
-    if start < stop:
-        base = lst[stop + 1]
-        left = find_left_larger(start, stop, base)
-        right = find_right_larger(start, stop, base)
-        while left < right:
-            lst[left], lst[right] = lst[right], lst[left]
-            print('swap ', *lst)
-            left = find_left_larger(left, right, base)
-            right = find_right_larger(left, right, base)
-        if lst[left] > base:
-            lst[stop + 1], lst[left] = lst[left], lst[stop + 1]
-
-        print('base ', *lst)
-        sort_quickly(start, left - 2)
-        sort_quickly(left + 1, stop)
-
-    elif start == stop:
-        if lst[start] > lst[stop + 1]:
-            lst[stop + 1], lst[start] = lst[start], lst[stop + 1]
-
-
-LIST_SIZE = 5
-# lst = generate_random_list(LIST_SIZE)
-lst = [-2, 2, -2, -2, 2]
-print('start', *lst)
-
-sort_quickly(0, LIST_SIZE - 2)
-print('stop ', *lst)
-'''
