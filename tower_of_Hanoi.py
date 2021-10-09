@@ -28,5 +28,6 @@ def move_tower(tower_height, start_pin, destination_pin):
         move_tower(tower_height - 1, third_pin, destination_pin)
 
 
-move_tower(3, 3, 1)
+# задаем количество дисков, стартовый стержень и конечный
+move_tower(4, 1, 3)
 
