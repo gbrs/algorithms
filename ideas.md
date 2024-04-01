@@ -3,8 +3,8 @@ DFS https://www.youtube.com/watch?v=0vUqPIaUX2Q&list=PLGhUJWLZ8uQ69hYB-AtVCerJ5y
 BFS https://www.youtube.com/watch?v=4iDv8Zu8L3I&list=PLGhUJWLZ8uQ4EWdQwVyUFnz82kbeGRP97  +  
 Бинарный поиск https://www.youtube.com/watch?v=q06xEZ7coR0&list=PLGhUJWLZ8uQ6imh9KFusOh2Hv_oD1619W  +  
 Двоичное дерево поиска https://www.youtube.com/watch?v=8Gdp7XJeW5g&list=PLGhUJWLZ8uQ5Ewplzb1ER29p4-kQme5Yr  
-Массив https://www.youtube.com/watch?v=y42rAaql_uc&list=PLGhUJWLZ8uQ4PVZ5sIyiJy8EQduBKEqRN   
-Итеративный перебор https://www.youtube.com/watch?v=qCybBkuHvE4&list=PLGhUJWLZ8uQ7hXcJJ_prpXn_AaYC4pNIn  
+Массив https://www.youtube.com/watch?v=y42rAaql_uc&list=PLGhUJWLZ8uQ4PVZ5sIyiJy8EQduBKEqRN +  
+Итеративный перебор https://www.youtube.com/watch?v=qCybBkuHvE4&list=PLGhUJWLZ8uQ7hXcJJ_prpXn_AaYC4pNIn +  
 
 
 ---
@@ -17,6 +17,13 @@ O(logN).
 Но так мы нашли "любое" искомое число. Но, обычно, надо найти либо крайнее левое из таких чисел, либо крайнее правое. 
 И тут могут быть подводные камни.  
 
+Кратко: 
+Найти заданное число в отсортированном массиве. 
+Абы какое из таких чисел. 
+Нельзя вот просто так взять и написать бинарный поиск. 
+Пока l <= r. m = (l + r) / 2
+Если f(m) <> смещаем l или r с перелетом m на один шаг. 
+
 ### Левый бинарный поиск
 Возможны разные подходы.  
 Правый бинпоиск пишется симметрично.  
@@ -27,6 +34,13 @@ l тоже строго на m смещаем.
 Второй способ. Инициализируем: l = -1, m = len(lst). 
 Тогда искомое число всегда будет под r, если оно есть. r указывает на первый элемент равный или больший искомого 
 (может указывать и за правую границу массива - проверять это).  
+
+Кратко: 
+Левый бинпоиск
+Пока указатели не станут рядом: l + 1 > r. 
+l = -1, m = len(lst). 
+Смещаем l или r точно на m. 
+Всегда r указывает на первый элемент равный или больший искомого. 
 
 ### Бинарный поиск по ответу
 Какого минимального размера квадратную доску надо взять, чтобы разместить на ней N дипломов размера H*W?  
