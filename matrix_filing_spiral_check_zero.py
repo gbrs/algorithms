@@ -10,7 +10,7 @@
 
 
 # n, m = map(int, input().split())
-N, M = 5, 7
+N, M = 3, 7
 lst = [[None] * M for _ in range(N)]
 cnt = 0
 row = 0
@@ -60,3 +60,26 @@ while cnt < N * M:
 ЧАСТНОСТИ
 Заполнить матрицу нулями и заполнять ее ориентируясь на нули.
 """
+
+""""
+def zm(n):
+    dx, dy = 1, 0  # смещение вправо
+    x, y = 0, 0
+    arr = [[None] * n for _ in range(n)]
+    
+    for i in range(1, n**2+1):  # перебираем все числа
+        arr[x][y] = i
+        nx, ny = x + dx, y + dy  # проверочные переменные: подойдут ли
+        if 0 <= nx < n and 0 <= ny < n and not arr[nx][ny]:  # если не вышли за край или незаполненный участок
+            x, y = nx, ny
+        else:
+            dx, dy = -dy, dx  # лепота смены направления
+            x, y = x + dx, y + dy
+    
+    for x in list(zip(*arr)):
+        print(*x)
+
+zm(int(input()))
+"""
+
+
