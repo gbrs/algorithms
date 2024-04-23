@@ -1,0 +1,45 @@
+**Минимальные остовы**
+https://algorithmica.org/ru/mst
+
+// Алгоритм Прима
+// тупой перебор ребер n-1 раз, выбирая самое короткое ребро к вершине, которая еще не в остове
+const int maxn = 1e5, inf = 1e9;
+vector from, to, weight;  // не вектор из троек (откуда, куда, расстояние), а 3 отдельных массива
+bool used[maxn]
+
+// считать все рёбра в массивы
+
+used[0] = 1;
+for (int i = 0; i < n-1; i++) {  // n-1 раз (количество ребер в дереве) повторяем внутренний цикл
+    int opt_w = inf, opt_from, opt_to;
+    for (int j = 0; j < m; j++)  // перебираем все ребра, запоминая самое короткое
+        // если вес меньше, если в стартовая вершина уже в остове, а финишная - нет
+        if (opt_w > weight[j] && used[from[j]] && !used[to[j]])
+            opt_w = weight[j], opt_from = from[j], opt_to = to[j]  // текущее минимальное ребро
+    used[opt_to] = 1;  // добавляем в остов финишную вершинку
+    cout << opt_from << " " << opt_to << endl;
+}
+
+---
+
+//
+
+vector< pair<int, int> > g[maxn]; ???
+set< pair<int, int> > q;  // очередь как в Дейкстре (дистанция, вершина)
+int d[maxn];  // массив расстояний до вершин
+// засунуть в q стартовую вершину
+
+while (q.size()) {
+    // достаем из очереди первый элемент
+    v = q.begin()->second;
+    q.erase(q.begin());
+
+    for (auto e : g[v]) {
+        int u = e.first, w = e.second;
+        if (w < d[u]) {
+            q.erase({d[u], u});
+            d[u] = w;
+            q.insert({d[u], u});
+        }
+    }
+}
