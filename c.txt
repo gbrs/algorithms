@@ -43,3 +43,137 @@ while (q.size()) {
         }
     }
 }
+
+--------------
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n = 5;
+    int m = 5;
+    // список смежности. Нумерация вершин в этом коде от нуля
+    vector <vector< pair<int,int>>> smezh(m);
+    const int INF = 1e9; // значение "бесконечность"
+
+    /*
+    smezh[0].push_back({1, 2}); // edge from vertex 0 to 1 with weight 2
+    smezh[1].push_back({0, 2}); // edge from vertex 1 to 0 with weight 2
+
+    smezh[0].push_back({3, 6}); // edge from vertex 0 to 3 with weight 6
+    smezh[3].push_back({0, 6}); // edge from vertex 3 to 0 with weight 6
+
+    smezh[1].push_back({2, 3}); // edge from vertex 1 to 2 with weight 3
+    smezh[2].push_back({1, 3}); // edge from vertex 2 to 1 with weight 3
+
+    smezh[1].push_back({3, 8}); // edge from vertex 1 to 3 with weight 8
+    smezh[3].push_back({1, 8}); // edge from vertex 3 to 1 with weight 8
+
+    smezh[1].push_back({4, 5}); // edge from vertex 1 to 4 with weight 5
+    smezh[4].push_back({1, 5}); // edge from vertex 4 to 1 with weight 5
+
+    smezh[2].push_back({4, 7}); // edge from vertex 2 to 4 with weight 7
+    smezh[4].push_back({2, 7}); // edge from vertex 4 to 2 with weight 7
+
+    smezh[3].push_back({4, 9}); // edge from vertex 3 to 4 with weight 9
+    smezh[4].push_back({3, 9}); // edge from vertex 4 to 3 with weight 9
+    */
+
+    smezh[0].push_back({1, 7});
+    smezh[1].push_back({0, 7});
+
+    smezh[0].push_back({3, 6});
+    smezh[3].push_back({0, 6});
+
+    smezh[1].push_back({2, 3});
+    smezh[2].push_back({1, 3});
+
+    smezh[1].push_back({3, 1});
+    smezh[3].push_back({1, 1});
+
+    smezh[1].push_back({4, 5});
+    smezh[4].push_back({1, 5});
+
+    smezh[2].push_back({4, 2});
+    smezh[4].push_back({2, 2});
+
+    smezh[3].push_back({4, 4});
+    smezh[4].push_back({3, 4});
+
+    // д.б. 0 3 1 2 4
+
+    // алгоритм
+    vector <int> dist(n, INF), roditeli(n, -1);
+    set < pair<int,int> > q;  // приоритетная очередь
+    int v, to, dlina;
+
+    q.insert ({0, 0});  // загружаем в очередь стартовую вершину
+    dist[0] = 0;
+
+    for (int i = 0; i < n; ++i) {
+
+    	if (q.empty()) {
+    		cout << "No MST!";
+    		return 0;
+    	}
+
+        // попаем из очереди наименьшее ребро, запоминаем его финишную вершину
+    	v = q.begin()->second;
+    	q.erase (q.begin());
+
+    	// если родители уже в остове, то выводим ребро
+    	// ??? а если нет?
+    	if (roditeli[v] != -1) {
+    	    cout << roditeli[v] << " -> " << v << endl;
+    	}
+
+        // обегаем всех соседей вершины v
+    	for (int j = 0; j < smezh[v].size(); j++) {
+    		to = smezh[v][j].first;
+    		dlina = smezh[v][j].second;
+    		// если нашли путь до вершины to короче записываем его в dist и q
+    		if (dlina < dist[to]) {
+    			q.erase ({dist[to], to});
+    			dist[to] = dlina;
+    			roditeli[to] = v;
+    			q.insert ({dist[to], to});
+    		}
+    	}
+    }
+}
+
+/*
+// входные данные
+int n;
+vector < vector < pair<int,int> > > g;
+const int INF = 1000000000; // значение "бесконечность"
+
+// алгоритм
+vector<int> min_e (n, INF), sel_e (n, -1);
+min_e[0] = 0;
+set < pair<int,int> > q;
+q.insert (make_pair (0, 0));
+for (int i=0; i<n; ++i) {
+	if (q.empty()) {
+		cout << "No MST!";
+		exit(0);
+	}
+	int v = q.begin()->second;
+	q.erase (q.begin());
+
+	if (sel_e[v] != -1)
+		cout << v << " " << sel_e[v] << endl;
+
+	for (size_t j=0; j<g[v].size(); ++j) {
+		int to = g[v][j].first,
+			cost = g[v][j].second;
+		if (cost < min_e[to]) {
+			q.erase (make_pair (min_e[to], to));
+			min_e[to] = cost;
+			sel_e[to] = v;
+			q.insert (make_pair (min_e[to], to));
+		}
+	}
+}
+*/
+
