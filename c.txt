@@ -56,7 +56,30 @@ int main() {
     vector <vector< pair<int,int>>> smezh(m);
     const int INF = 1e9; // значение "бесконечность"
 
+    smezh[0].push_back({1, 12}); // edge from vertex 0 to 1 with weight 2
+    smezh[1].push_back({0, 12}); // edge from vertex 1 to 0 with weight 2
 
+    smezh[0].push_back({3, 6}); // edge from vertex 0 to 3 with weight 6
+    smezh[3].push_back({0, 6}); // edge from vertex 3 to 0 with weight 6
+
+    smezh[1].push_back({2, 1}); // edge from vertex 1 to 2 with weight 3
+    smezh[2].push_back({1, 1}); // edge from vertex 2 to 1 with weight 3
+
+    smezh[1].push_back({3, 5}); // edge from vertex 1 to 3 with weight 8
+    smezh[3].push_back({1, 5}); // edge from vertex 3 to 1 with weight 8
+
+    smezh[1].push_back({4, 16}); // edge from vertex 1 to 4 with weight 5
+    smezh[4].push_back({1, 16}); // edge from vertex 4 to 1 with weight 5
+
+    smezh[2].push_back({4, 17}); // edge from vertex 2 to 4 with weight 7
+    smezh[4].push_back({2, 17}); // edge from vertex 4 to 2 with weight 7
+
+    smezh[3].push_back({4, 15}); // edge from vertex 3 to 4 with weight 9
+    smezh[4].push_back({3, 15}); // edge from vertex 4 to 3 with weight 9
+
+    // д.б. 0 3 1 2 4: 03 31 12 34
+
+    /*
     smezh[0].push_back({1, 2}); // edge from vertex 0 to 1 with weight 2
     smezh[1].push_back({0, 2}); // edge from vertex 1 to 0 with weight 2
 
@@ -79,7 +102,7 @@ int main() {
     smezh[4].push_back({3, 9}); // edge from vertex 4 to 3 with weight 9
 
     // д.б. 0 1 2 4 3: 01 12 14 03
-
+    */
 
     /*
     smezh[0].push_back({1, 7});
@@ -117,17 +140,15 @@ int main() {
     */
 
 
-
-    // алгоритм
     vector <int> dist(n, INF); // расстояние до остова
-    vector <int> roditeli(n, -1);  // и родителей заодно хранить здесь же будем
-    vector <int> used(n, 0);
+    vector <int> roditeli(n, -1);
+    vector <int> ostov(n, 0);
     set < pair<int,int> > q;  // приоритетная очередь
     int v, to, dlina;
 
     q.insert ({0, 0});  // загружаем в очередь стартовую вершину
     dist[0] = 0;
-    used[0] = 1;
+    ostov[0] = 1;
 
     for (int i = 0; i < n; ++i) {
 
@@ -140,30 +161,29 @@ int main() {
     	v = q.begin()->second;
     	q.erase (q.begin());
 
-    	// если родительница вершины v уже в остове, то выводим ребро.
-    	// Это не срабатывает только на первом цикле?
-    	if (roditeli[v] != -1) {
-    	    cout << "add " << roditeli[v] << " -> " << v << endl;
-    	    used[v] = 1;
+    	// выводим, найденное на предыдущей иттерации цикла ребро
+    	if (i != 0) {
+    	    cout << roditeli[v] << " -> " << v << endl;
+    	    ostov[v] = 1;
     	}
 
         // обегаем всех соседей вершины v
     	for (int j = 0; j < smezh[v].size(); j++) {
     		to = smezh[v][j].first;
     		dlina = smezh[v][j].second;
-    		cout << v << "->" << to << ' ' << dlina;
+    		// cout << v << "->" << to << ' ' << dlina;
     		// для вершин to, которые еще не в остове:
-    		// если нашли путь от вершины to до остова короче,
-    		// записываем его в dist и q
-    		if (used[to] == 0 & dlina < dist[to]) {
+    		// если путь от v до to короче, чем мы нашли раннее,
+    		// то записываем его в dist и q
+    		if (ostov[to] == 0 & dlina < dist[to]) {
     			q.erase ({dist[to], to});
     			dist[to] = dlina;
     			roditeli[to] = v;
-    			cout << " in q" << endl;
+    			// cout << " in q" << endl;
     			q.insert ({dist[to], to});
-    		} else {
-    		    cout << endl;
-    		}
+        //	} else {
+        //	    cout << endl;
+        	}
     	}
     }
 }
