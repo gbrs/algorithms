@@ -1,3 +1,5 @@
+# Динамическое программирование 2D
+
 https://www.youtube.com/watch?v=e67Tba6tC1Y
 https://algorithmica.org/tg/knapsack-gis-gcs
 
