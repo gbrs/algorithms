@@ -66,5 +66,7 @@ a * b = НОК(a, b) * НОД(a, b)
 
 ## Диофантовы уравнения
 
-https://ru.algorithmica.org/cs/modular/extended-euclid/
+[описание метода решения](https://ru.wikihow.com/решить-линейное-диофантово-уравнение)  
+[ и его реализация в рекурсивном алгоритме](https://ru.algorithmica.org/cs/modular/extended-euclid/)
+
 
