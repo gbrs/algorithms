@@ -157,11 +157,64 @@ https://www.youtube.com/watch?v=4iDv8Zu8L3I
 ### 1-k BFS
 Задача нахождения кратчайших путей от вершины s для случая, когда расстояния от 1 до некоего небольшого k. 
 Или есть заметное ограничение на максимальную длину кратчайшего пути.  
-Решение за O(kV + E)! 
+Решение за O(kV + E)!  
 Один рассказывал так, что пути не обязательно целые. По ячейкам распределяем в соответствии с округлением вниз. 
-Но тогда можно к нему свести и задачи с большими k, "нормализовав" значения в пределы [1, k)? 
-Хоть [1, 2)? 
-Тогда в чем реальное ограничение: почему не всегда можно им заменять Дейкстру?  
+Расстояние минимум 1 гарантирует, что соседи окажутся в другой ячейке.  
+
+int dist[maxn];  // заполняем ли бесконечностями
+dist[s] = 0;
+
+queue<int> q[maxdist];  // вектор очередей
+q[0].push_back(s);
+
+for (int i = 0; i < maxdist; i++) {
+    while (!q[i].empty()) {
+        int v = q[i].front();
+        q[i].pop();
+        // если расстояние меньше и мы уже рассмотрели эту вершину,
+        // но она всё ещё лежит в более верхней очереди
+        if (dist[v] > i)
+            continue;
+        for (auto [neighbour, weight] : g[v]) {
+            if (dist[neighbour] > dist[v] + weight) {  // в исходнике знак был <
+                dist[neighbour] = dist[v] + weight;
+                q[dist[neighbour]].push(u);
+            }
+        }
+    }
+}
+
+void bfs(int start_vertex, vector<int> &dist, vector<vector<pair<int, int>>> &graph, int max_w)
+{
+    fill(dist.begin(), dist.end(), INT_MAX);
+    vector<bool> used(dist.size(), false);
+    vector<deque<int>> q(max_w + 1);
+    int current_q = 0, cnt_in_queue = 1;
+    dist[start_vertex] = 0;
+    q[current_q].push_back(start_vertex);
+    while (0 < cnt_in_queue) {
+        //пропускаем пустые очереди
+        while (q[current_q % (max_w + 1)].empty()) {
+            current_q++;
+        }
+        //пропускаем пустые очереди
+        int v = q[current_q][0];
+        q[current_q].pop_front();
+        cnt_in_queue--;
+        if (used[v]) {
+            continue;
+        } else {
+            used[v] = true;
+            for (auto e : graph[v]) {
+                if (dist[e.first] > dist[v] + e.second) {
+                    dist[e.first] = dist[v] + e.second;
+                    q[dist[e.first] % (max_w + 1)].push_back(e.first);
+                    cnt_in_queue++;
+                }
+            }
+        }
+    }
+}
 
 ### Алгоритм Дейкстры
 https://www.youtube.com/watch?v=fA_xvuqzuGs https://www.youtube.com/watch?v=J-7MzbEtTR0  
