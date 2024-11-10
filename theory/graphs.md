@@ -117,6 +117,9 @@ https://www.youtube.com/watch?v=waXBVBKdV1s
 ---
 
 ## BFS
+
+![Методы определения расстояний между всеми вершинами](../images/all_distances_table.png)
+
 https://ru.algorithmica.org/cs/shortest-paths/bfs/
 https://www.youtube.com/watch?v=4iDv8Zu8L3I  
 Использование очереди - классика. 
@@ -238,8 +241,6 @@ dist[b] = min(dist[b], dist[a] + weight).
 А можно на первом шаге обновить расстояние только для соседей стартовой вершины. А на последующих шагах пытаться 
 обновлять только соседей вершин, которые были обновлены на предыдущем шаге. Очередь нам в помощь. Это называют SPFA /
  алгоритм Мура / алгоритм Ф-Б с очередью.
-
-![Методы определения расстояний между всеми вершинами](images/all_distances_table.png)
 
 ### Алгоритм Флойда-Уоршелла
 https://www.youtube.com/watch?v=kaA3_qNfpCA https://www.youtube.com/watch?v=8JQ565Rz7d8  
