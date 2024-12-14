@@ -70,6 +70,7 @@ vector<int> z_function(string s) {
 
 
 ## Алгоритм Манакера
+http://www.e-maxx-ru.1gb.ru/algo/palindromes_count  
 Найти все палиндромы в строке S.  
 Пока рассмотрим нахождение нечетных палиндромов.  
 Дана строка S длиной n. 
