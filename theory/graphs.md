@@ -131,12 +131,7 @@ https://www.youtube.com/watch?v=waXBVBKdV1s
 Если надо только _посчитать количество островов_, то можно обойтись счетчиком.
 
 ### Мосты
-https://youtu.be/nedB0619SiE?si=-rC5c8QfBr9nwj9n&t=1808  
-37:30 код для мостов, 1:32:16 для цикла  
-https://ru.algorithmica.org/cs/graph-traversals/bridges/  
-https://neerc.ifmo.ru/wiki/index.php?title=Использование_обхода_в_глубину_для_поиска_мостов  
-http://www.e-maxx-ru.1gb.ru/algo/bridge_searching  
-https://habr.com/ru/sandbox/150866/  
+https://ru.algorithmica.org/cs/graph-traversals/bridges/   
 Мостом называется ребро, при удалении которого связный неориентированный граф становится несвязным.  
 Пусть граф ненаправленный.  
 Если построим дерево dfsа, то прямые рёбра — те, по которым были переходы в dfs. Обратные рёбра — не было. 
@@ -164,6 +159,7 @@ hup[u] = min(
 то оставшиеся компоненты (кроме одиночных?) будут компонентами реберной двусвязности.  
 
 ### Точки сочленения
+https://ru.algorithmica.org/cs/graph-traversals/bridges/   
 Точкой сочленения называется вершина, при удалении которой связный неориентированный граф становится несвязным.   
 Пусть граф ненаправленный.  
 Алгоритм будет похож на предыдущий.  
@@ -178,9 +174,6 @@ Corner case: корень (v == root). Но тут достаточно посм
 
 ### Эйлеров цикл
 https://ru.algorithmica.org/cs/graph-traversals/euler-cycle/  
-https://neerc.ifmo.ru/wiki/index.php?title=Алгоритм_построения_Эйлерова_цикла  
-http://www.e-maxx-ru.1gb.ru/algo/euler_path  
-https://habr.com/ru/articles/803963/  
 Эйлеров путь — это путь в графе, проходящий через все его рёбра по разу. 
 Эйлеров цикл — это эйлеров путь, являющийся циклом.  
 (Гамильтонов путь и цикл — посещение всех вершины по разу. Это задача коммивояжера).  
