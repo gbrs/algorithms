@@ -87,6 +87,9 @@ https://foxford.ru/wiki/informatika/postroenie-gamiltonova-tsikla?utm_referrer=h
 http://www.e-maxx-ru.1gb.ru/algo/all_submasks  
 https://silvertests.ru/GuideView.aspx?id=32340  
 
+### Число подпалиндромов
+https://ru.algorithmica.org/cs/general-dynamic/segments/  
+https://dxdy.ru/topic106121.html  
 
 ## Разное
 
