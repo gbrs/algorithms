@@ -77,22 +77,25 @@ log_2 n: while ((1 << lgr) <= n)  ++lgr
 - (x >> i) & 1 - выдаст то, что надо;
 - x & (1 << i) - выдаст либо 0, лбо 2^i
 
+### Перебор подмасок
+http://www.e-maxx-ru.1gb.ru/algo/all_submasks
+Дана битовая маска m. Требуется перебрать все её подмаски, т.е. такие маски s, 
+в которых могут быть включены только те биты, которые были включены в маске m.  
+`for (int s = m; s; s = (s - 1) & m) {}` переберет все маски в порядке уменьшения. 
+Цикл прервется, когда s станет 0 (т.е. false)? Случай с маской 0 надо обработать отдельно вне цикла. 
+Или использовать менее красивое: `for (int s = m; ; s = (s - 1) & m) { ...	if (s==0)  break;}`.  
+Уменьшаем число на 1 и оставляем только те биты, которые есть в маске. 
+Получаем следующую по убыванию величины числа маску.  
+
 ### Гамильтонов путь
 Гамильтоновым путь проходит через каждую вершину графа ровно один раз.  
 https://ru.wikipedia.org/wiki/Задача_о_гамильтоновом_пути  
 https://neerc.ifmo.ru/wiki/index.php?title=Гамильтоновы_графы  
 https://foxford.ru/wiki/informatika/postroenie-gamiltonova-tsikla?utm_referrer=https%3A%2F%2Fyandex.ru%2F  
 
-### Перебор подмасок
-http://www.e-maxx-ru.1gb.ru/algo/all_submasks  
-https://silvertests.ru/GuideView.aspx?id=32340  
 
-### Число подпалиндромов
-https://ru.algorithmica.org/cs/general-dynamic/segments/  
-https://dxdy.ru/topic106121.html  
 
 ## Разное
-
 Чтобы понять рекурсию, надо сначала понять рекурсию.
 
 Вместо for (int i = 0; i < sqrt(n); i++) надо писать for (int i = 0; i * i < n; i++). 
