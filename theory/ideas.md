@@ -87,13 +87,6 @@ http://www.e-maxx-ru.1gb.ru/algo/all_submasks
 Уменьшаем число на 1 и оставляем только те биты, которые есть в маске. 
 Получаем следующую по убыванию величины числа маску.  
 
-### Гамильтонов путь
-Гамильтоновым путь проходит через каждую вершину графа ровно один раз.  
-https://ru.wikipedia.org/wiki/Задача_о_гамильтоновом_пути  
-https://neerc.ifmo.ru/wiki/index.php?title=Гамильтоновы_графы  
-https://foxford.ru/wiki/informatika/postroenie-gamiltonova-tsikla?utm_referrer=https%3A%2F%2Fyandex.ru%2F  
-
-
 
 ## Разное
 Чтобы понять рекурсию, надо сначала понять рекурсию.
