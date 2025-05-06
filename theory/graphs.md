@@ -512,3 +512,9 @@ up[v][i] = up [ up[v][i-1] ] [i-1].
 https://ru.wikipedia.org/wiki/Задача_о_гамильтоновом_пути  
 https://neerc.ifmo.ru/wiki/index.php?title=Гамильтоновы_графы  
 https://foxford.ru/wiki/informatika/postroenie-gamiltonova-tsikla?utm_referrer=https%3A%2F%2Fyandex.ru%2F  
+
+### Паросочетания
+https://algorithmica.org/ru/matching  
+https://neerc.ifmo.ru/wiki/index.php?title=Паросочетания:_основные_определения,_теорема_о_максимальном_паросочетании_и_дополняющих_цепях  
+http://www.e-maxx-ru.1gb.ru/algo/kuhn_matching  
+
